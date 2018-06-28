@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
+using DH.Drawing;
 using UnityEngine;
 
 public class Line : MonoBehaviour {
@@ -13,27 +14,10 @@ public class Line : MonoBehaviour {
 
 	List<Vector3> points;
 
-	private LineProperty lineProperty;
-
-	public LineProperty LineProperty
+	public void UpdateLineRenderer(LineProperty lineProperty)
 	{
-		get
-		{
-			if(lineProperty == null)
-				lineProperty =new LineProperty();
-			
-			return lineProperty;
-		}
-		set
-		{
-			lineProperty = value;
-			UpdateLineRenderer();
-		}
-	}
-
-	private void UpdateLineRenderer()
-	{
-		lineRenderer.widthMultiplier = (lineProperty.lineSize);
+		lineRenderer.startWidth = lineProperty.LineWidth;
+		lineRenderer.endWidth = lineProperty.LineWidth;
 		lineRenderer.startColor = (lineProperty.LineColor);
 		lineRenderer.endColor = (lineProperty.LineColor);
 	}
@@ -75,11 +59,4 @@ public class Line : MonoBehaviour {
 
 }
 
-[System.Serializable]
-public class LineProperty
-{
-	public float LineWidth;
-	public float lineSize;
-	public Color LineColor;
-	public float Smootnes;
-}
+
