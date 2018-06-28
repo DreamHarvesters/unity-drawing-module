@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DH.Drawing.Exceptions
+namespace DH.DrawingModule.Exceptions
 {
     public class DrawerDoesNotExist : Exception
     {

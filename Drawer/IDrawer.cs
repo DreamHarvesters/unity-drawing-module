@@ -1,14 +1,15 @@
 ﻿using System;
+using DH.DrawingModule.Line;
 
-namespace DH.Drawing
+namespace DH.DrawingModule.Drawer
 {
     public interface IDrawer : IDisposable
     {
-        Line CurrentLine { get; set; }
+        Line.Line CurrentLine { get; set; }
 
         void UpdateLineProperty(LineProperty lineProperty);
         
-        Action<Line> OnLineCreated { get; set; }
+        Action<Line.Line> OnLineCreated { get; set; }
     }
 
     public class NullDrawer : IDrawer
@@ -17,11 +18,11 @@ namespace DH.Drawing
         {
         }
 
-        public Line CurrentLine { get; set; }
+        public Line.Line CurrentLine { get; set; }
         public void UpdateLineProperty(LineProperty lineProperty)
         {
         }
 
-        public Action<Line> OnLineCreated { get; set; }
+        public Action<Line.Line> OnLineCreated { get; set; }
     }
 }

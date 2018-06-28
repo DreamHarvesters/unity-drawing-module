@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DH.Drawing
+namespace DH.DrawingModule.InputReader
 {
     public class InputReaderFactory
     {

@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace DH.Drawing
+namespace DH.DrawingModule.InputReader
 {
     public class InputReader : MonoBehaviour, IInputReader
     {

@@ -1,11 +1,13 @@
 ﻿using System;
+using DH.DrawingModule.InputReader;
+using DH.DrawingModule.Line;
 using UnityEngine;
 
-namespace DH.Drawing
+namespace DH.DrawingModule.Drawer
 {
     public class FreeLineDrawer : Drawer, IDisposable
     {
-        private Line line;
+        private Line.Line line;
         RaycastHit hit;
         Transform objectHit;
 

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using DH.DrawingModule.InputReader;
+using DH.DrawingModule.Line;
 
-namespace DH.Drawing
+namespace DH.DrawingModule.Drawer
 {
     public class DrawerFactory
     {

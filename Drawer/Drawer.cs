@@ -1,7 +1,9 @@
 ﻿using System;
+using DH.DrawingModule.InputReader;
+using DH.DrawingModule.Line;
 using UnityEngine;
 
-namespace DH.Drawing
+namespace DH.DrawingModule.Drawer
 {
     public abstract class Drawer : IDrawer
     {
@@ -28,20 +30,20 @@ namespace DH.Drawing
             OnLineCreated = null;
         }
 
-        protected void RaiseLineCreated(Line line)
+        protected void RaiseLineCreated(Line.Line line)
         {
             if (OnLineCreated != null)
                 OnLineCreated(line);
         }
 
-        public Line CurrentLine { get; set; }
+        public Line.Line CurrentLine { get; set; }
 
         public void UpdateLineProperty(LineProperty lineProperty)
         {
             this.lineProperty = lineProperty;
         }
 
-        public Action<Line> OnLineCreated { get; set; }
+        public Action<Line.Line> OnLineCreated { get; set; }
 
         protected abstract void SubscribeInputEvents();
         protected abstract void UnsubscribeInputEvents();

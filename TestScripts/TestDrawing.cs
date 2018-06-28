@@ -1,7 +1,7 @@
-﻿using DH.Drawing;
+﻿using DH.DrawingModule.Line;
 using UnityEngine;
 
-namespace TestScripts
+namespace DH.DrawingModule.TestScripts
 {
     public class TestDrawing : MonoBehaviour
     {

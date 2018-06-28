@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DH.Drawing
+namespace DH.DrawingModule.Line
 {
     [Serializable]
     public class LineProperty 
