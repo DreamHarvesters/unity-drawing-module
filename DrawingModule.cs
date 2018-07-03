@@ -16,6 +16,9 @@ namespace DH.DrawingModule
         private IDrawer drawer;
 
         private bool isActivated;
+        private ModuleSetup setup;
+        
+        public LineProperty CurrentLineProperty { get; private set; }
 
         public bool IsActivated
         {
@@ -27,9 +30,13 @@ namespace DH.DrawingModule
             get { return drawer.GetType(); }
         }
 
-        public DrawingModule()
+        public DrawingModule(ModuleSetup setup)
         {
+            if(setup == null)
+                throw new Exception("Module setup cannot be null");
+            
             lines = new Stack<Line.Line>();
+            this.setup = setup;
         }
 
         public void Activate()
@@ -40,7 +47,7 @@ namespace DH.DrawingModule
             Debug.LogWarning("System activated with null drawer. Remember changing drawer type");
         }
 
-        public void DeActivate()
+        public void Deactivate()
         {
             if (isActivated)
             {
@@ -55,7 +62,7 @@ namespace DH.DrawingModule
             if (isActivated)
             {
                 drawer.Dispose();
-                drawer = new DrawerFactory().GetStraightLineDrawer(lineProperty);
+                drawer = new DrawerFactory().GetStraightLineDrawer(lineProperty, setup.LinePrefab);
                 drawer.OnLineCreated = OnLineCreated;
                 return;
             }
@@ -68,7 +75,7 @@ namespace DH.DrawingModule
             if (isActivated)
             {
                 drawer.Dispose();
-                drawer = new DrawerFactory().GetFreeLineDrawer(lineProperty);
+                drawer = new DrawerFactory().GetFreeLineDrawer(lineProperty, setup.LinePrefab);
                 drawer.OnLineCreated = OnLineCreated;
                 return;
             }
@@ -84,6 +91,7 @@ namespace DH.DrawingModule
         public void UpdateLineProperty(LineProperty lineProperty)
         {
             drawer.UpdateLineProperty(lineProperty);
+            CurrentLineProperty = lineProperty;
         }
 
         public void Undo()

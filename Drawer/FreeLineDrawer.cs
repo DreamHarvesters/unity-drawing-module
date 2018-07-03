@@ -13,7 +13,7 @@ namespace DH.DrawingModule.Drawer
 
         private bool DrawEnable;
 
-        public FreeLineDrawer(IInputReader inputReader, LineProperty lineProperty) : base(inputReader, lineProperty)
+        public FreeLineDrawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab) : base(inputReader, lineProperty, linePrefab)
         {
         }
 

@@ -5,11 +5,13 @@ namespace DH.DrawingModule.TestScripts
 {
     public class TestDrawing : MonoBehaviour
     {
+        [SerializeField] private ModuleSetup setup;
+        
         private DrawingModule module;
 
         private void Start()
         {
-            module = new DrawingModule();
+            module = new DrawingModule(setup);
         }
 
         private void Update()
@@ -21,7 +23,7 @@ namespace DH.DrawingModule.TestScripts
                 module.Activate();
             
             if(Input.GetKeyDown(KeyCode.D))
-                module.DeActivate();
+                module.Deactivate();
             
             if(Input.GetKeyDown(KeyCode.U))
                 module.Undo();

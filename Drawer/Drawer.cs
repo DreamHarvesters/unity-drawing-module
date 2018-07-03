@@ -12,9 +12,9 @@ namespace DH.DrawingModule.Drawer
         protected IInputReader inputReader;
         protected int layerMask;
 
-        public Drawer(IInputReader inputReader, LineProperty lineProperty)
+        public Drawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab)
         {
-            lineFactory = new LineFactory();
+            lineFactory = new LineFactory(linePrefab);
             layerMask = LayerMask.GetMask("DrawingPlane");
 
             this.inputReader = inputReader;
