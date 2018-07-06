@@ -16,7 +16,7 @@ namespace DH.DrawingModule
         private IDrawer drawer;
 
         private bool isActivated;
-        private ModuleSetup setup;
+        private IModuleSetup setup;
         
         public LineProperty CurrentLineProperty { get; private set; }
 
@@ -30,7 +30,7 @@ namespace DH.DrawingModule
             get { return drawer.GetType(); }
         }
 
-        public DrawingModule(ModuleSetup setup)
+        public DrawingModule(IModuleSetup setup)
         {
             if(setup == null)
                 throw new Exception("Module setup cannot be null");
@@ -62,7 +62,7 @@ namespace DH.DrawingModule
             if (isActivated)
             {
                 drawer.Dispose();
-                drawer = new DrawerFactory().GetStraightLineDrawer(lineProperty, setup.LinePrefab);
+                drawer = new DrawerFactory().GetStraightLineDrawer(lineProperty, setup.LinePrefab, setup.RayCamera);
                 drawer.OnLineCreated = OnLineCreated;
                 return;
             }
@@ -75,7 +75,7 @@ namespace DH.DrawingModule
             if (isActivated)
             {
                 drawer.Dispose();
-                drawer = new DrawerFactory().GetFreeLineDrawer(lineProperty, setup.LinePrefab);
+                drawer = new DrawerFactory().GetFreeLineDrawer(lineProperty, setup.LinePrefab, setup.RayCamera);
                 drawer.OnLineCreated = OnLineCreated;
                 return;
             }

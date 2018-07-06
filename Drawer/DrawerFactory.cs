@@ -6,16 +6,16 @@ namespace DH.DrawingModule.Drawer
 {
     public class DrawerFactory
     {
-        public IDrawer GetStraightLineDrawer(LineProperty lineProperty, GameObject linePrefab)
+        public IDrawer GetStraightLineDrawer(LineProperty lineProperty, GameObject linePrefab, Camera rayCamera)
         {
             IInputReader inputReader = new InputReaderFactory().GetInputReader();
-            return new StraightLineDrawer(inputReader, lineProperty, linePrefab);
+            return new StraightLineDrawer(inputReader, lineProperty, linePrefab, rayCamera);
         }
 
-        public IDrawer GetFreeLineDrawer(LineProperty lineProperty, GameObject linePrefab)
+        public IDrawer GetFreeLineDrawer(LineProperty lineProperty, GameObject linePrefab, Camera rayCamera)
         {
             IInputReader inputReader = new InputReaderFactory().GetInputReader();
-            return new FreeLineDrawer(inputReader, lineProperty, linePrefab);
+            return new FreeLineDrawer(inputReader, lineProperty, linePrefab, rayCamera);
         }
     }
 }

@@ -11,12 +11,14 @@ namespace DH.DrawingModule.Drawer
         protected LineProperty lineProperty;
         protected IInputReader inputReader;
         protected int layerMask;
+        protected Camera rayCamera;
 
-        public Drawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab)
+        public Drawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab, Camera rayCamera)
         {
             lineFactory = new LineFactory(linePrefab);
             layerMask = LayerMask.GetMask("DrawingPlane");
-
+            
+            this.rayCamera = rayCamera;
             this.inputReader = inputReader;
 
             UpdateLineProperty(lineProperty);

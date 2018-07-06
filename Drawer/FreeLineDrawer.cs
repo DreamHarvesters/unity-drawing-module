@@ -5,15 +5,15 @@ using UnityEngine;
 
 namespace DH.DrawingModule.Drawer
 {
-    public class FreeLineDrawer : Drawer, IDisposable
+    public class FreeLineDrawer : Drawer
     {
         private Line.Line line;
-        RaycastHit hit;
-        Transform objectHit;
+        private RaycastHit hit;
+        private Transform objectHit;
 
         private bool DrawEnable;
 
-        public FreeLineDrawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab) : base(inputReader, lineProperty, linePrefab)
+        public FreeLineDrawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab, Camera rayCamera) : base(inputReader, lineProperty, linePrefab, rayCamera)
         {
         }
 
@@ -33,7 +33,7 @@ namespace DH.DrawingModule.Drawer
 
         private void OnDown(object sender, Vector3 args)
         {
-            Ray ray = Camera.main.ScreenPointToRay(args);
+            Ray ray = rayCamera.ScreenPointToRay(args);
 
             if (Physics.Raycast(ray, out hit, 10000, layerMask))
             {
@@ -53,7 +53,7 @@ namespace DH.DrawingModule.Drawer
 
         private void OnMove(object sender, Vector3 args)
         {
-            Ray ray = Camera.main.ScreenPointToRay(args);
+            Ray ray = rayCamera.ScreenPointToRay(args);
 
             if (Physics.Raycast(ray, out hit, 10000, layerMask))
             {

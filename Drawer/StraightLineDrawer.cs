@@ -12,7 +12,7 @@ namespace DH.DrawingModule.Drawer
 
         private bool drawEnable;
 
-        public StraightLineDrawer(IInputReader inputReader, LineProperty property, GameObject linePrefab) : base(inputReader, property, linePrefab)
+        public StraightLineDrawer(IInputReader inputReader, LineProperty property, GameObject linePrefab, Camera rayCamera) : base(inputReader, property, linePrefab, rayCamera)
         {
         }
 
@@ -32,7 +32,7 @@ namespace DH.DrawingModule.Drawer
 
         private void OnMove(object sender, Vector3 args)
         {
-            Ray ray = Camera.main.ScreenPointToRay(args);
+            Ray ray = rayCamera.ScreenPointToRay(args);
 
             if (Physics.Raycast(ray, out hit, 10000, layerMask) && line != null)
             {
@@ -42,7 +42,7 @@ namespace DH.DrawingModule.Drawer
 
         private void OnDown(object sender, Vector3 args)
         {
-            Ray ray = Camera.main.ScreenPointToRay(args);
+            Ray ray = rayCamera.ScreenPointToRay(args);
 
             if (Physics.Raycast(ray, out hit, 10000, layerMask))
             {

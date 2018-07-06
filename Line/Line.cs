@@ -14,9 +14,13 @@ namespace DH.DrawingModule.Line
 		}
 
 		List<Vector3> points;
+		
+		private LineProperty lineProperty;
 
 		public void UpdateLineRenderer(LineProperty lineProperty)
 		{
+			this.lineProperty = lineProperty;
+			
 			lineRenderer.startWidth = lineProperty.LineWidth;
 			lineRenderer.endWidth = lineProperty.LineWidth;
 			lineRenderer.startColor = (lineProperty.LineColor);
@@ -32,7 +36,7 @@ namespace DH.DrawingModule.Line
 				return;
 			}
 
-			if (Vector2.Distance(points.Last(), mousePos) > .1f)
+			if (Vector2.Distance(points.Last(), mousePos) > lineProperty.Smootnes)
 				SetPoint(mousePos);
 		}
 
