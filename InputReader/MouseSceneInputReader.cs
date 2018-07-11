@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DH.DrawingModule.InputReader
 {
-    public class MouseInputReader : InputReader
+    public class MouseSceneInputReader : SceneInputReader
     {
         public override InputEvent OnDown { get; set; }
         public override InputEvent OnUp { get; set; }

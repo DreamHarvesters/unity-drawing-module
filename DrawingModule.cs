@@ -20,6 +20,9 @@ namespace DH.DrawingModule
         
         public LineProperty CurrentLineProperty { get; private set; }
 
+        public Action<Line.Line> LineCreated;
+        public Action<Line.Line> LineEnded;
+
         public bool IsActivated
         {
             get { return isActivated; }
@@ -62,8 +65,9 @@ namespace DH.DrawingModule
             if (isActivated)
             {
                 drawer.Dispose();
-                drawer = new DrawerFactory().GetStraightLineDrawer(lineProperty, setup.LinePrefab, setup.RayCamera);
+                drawer = new DrawerFactory(setup.InputReaderFactory).GetStraightLineDrawer(lineProperty, setup.LinePrefab, setup.RayCamera);
                 drawer.OnLineCreated = OnLineCreated;
+                drawer.OnLineEnded = OnLineEnded;
                 return;
             }
 
@@ -75,8 +79,9 @@ namespace DH.DrawingModule
             if (isActivated)
             {
                 drawer.Dispose();
-                drawer = new DrawerFactory().GetFreeLineDrawer(lineProperty, setup.LinePrefab, setup.RayCamera);
+                drawer = new DrawerFactory(setup.InputReaderFactory).GetFreeLineDrawer(lineProperty, setup.LinePrefab, setup.RayCamera);
                 drawer.OnLineCreated = OnLineCreated;
+                drawer.OnLineEnded = OnLineEnded;
                 return;
             }
 
@@ -86,6 +91,15 @@ namespace DH.DrawingModule
         private void OnLineCreated(Line.Line line)
         {
             lines.Push(line);
+
+            if (LineCreated != null)
+                LineCreated(line);
+        }
+
+        void OnLineEnded(Line.Line line)
+        {
+            if (LineEnded != null)
+                LineEnded(line);
         }
 
         public void UpdateLineProperty(LineProperty lineProperty)

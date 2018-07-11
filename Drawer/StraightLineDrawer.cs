@@ -63,6 +63,8 @@ namespace DH.DrawingModule.Drawer
 
         private void OnUp(object sender, Vector3 args)
         {
+            RaiseLineEnded(line);
+            
             line = null;
         }
     }

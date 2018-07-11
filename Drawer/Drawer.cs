@@ -38,7 +38,11 @@ namespace DH.DrawingModule.Drawer
                 OnLineCreated(line);
         }
 
-        public Line.Line CurrentLine { get; set; }
+        protected void RaiseLineEnded(Line.Line line)
+        {
+            if (OnLineEnded != null)
+                OnLineEnded(line);
+        }
 
         public void UpdateLineProperty(LineProperty lineProperty)
         {
@@ -46,6 +50,7 @@ namespace DH.DrawingModule.Drawer
         }
 
         public Action<Line.Line> OnLineCreated { get; set; }
+        public Action<Line.Line> OnLineEnded { get; set; }
 
         protected abstract void SubscribeInputEvents();
         protected abstract void UnsubscribeInputEvents();

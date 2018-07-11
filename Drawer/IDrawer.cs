@@ -5,11 +5,10 @@ namespace DH.DrawingModule.Drawer
 {
     public interface IDrawer : IDisposable
     {
-        Line.Line CurrentLine { get; set; }
-
         void UpdateLineProperty(LineProperty lineProperty);
         
         Action<Line.Line> OnLineCreated { get; set; }
+        Action<Line.Line> OnLineEnded { get; set; }
     }
 
     public class NullDrawer : IDrawer
@@ -18,11 +17,11 @@ namespace DH.DrawingModule.Drawer
         {
         }
 
-        public Line.Line CurrentLine { get; set; }
         public void UpdateLineProperty(LineProperty lineProperty)
         {
         }
 
         public Action<Line.Line> OnLineCreated { get; set; }
+        public Action<Line.Line> OnLineEnded { get; set; }
     }
 }

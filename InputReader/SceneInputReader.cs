@@ -2,7 +2,7 @@
 
 namespace DH.DrawingModule.InputReader
 {
-    public class InputReader : MonoBehaviour, IInputReader
+    public class SceneInputReader : MonoBehaviour, IInputReader
     {
         public virtual InputEvent OnDown { get; set; }
         public virtual InputEvent OnUp { get; set; }

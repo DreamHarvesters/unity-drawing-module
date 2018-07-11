@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DH.DrawingModule.InputReader;
+using UnityEngine;
 
 namespace DH.DrawingModule
 {
@@ -6,5 +7,6 @@ namespace DH.DrawingModule
     {
         GameObject LinePrefab { get; }
         Camera RayCamera { get; }
+        IInputReaderFactory InputReaderFactory { get; }
     }
 }
