@@ -5,7 +5,7 @@ namespace DH.DrawingModule.TestScripts
 {
     public class TestDrawing : MonoBehaviour
     {
-        [SerializeField] private ModuleSetup setup;
+        [SerializeField] private DrawingModuleSetup setup;
         
         private DrawingModule module;
 

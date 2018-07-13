@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DH.DrawingModule
 {
-    public interface IModuleSetup
+    public interface IDrawingModuleSetup
     {
         GameObject LinePrefab { get; }
         Camera RayCamera { get; }

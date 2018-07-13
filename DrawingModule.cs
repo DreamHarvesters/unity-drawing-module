@@ -16,7 +16,7 @@ namespace DH.DrawingModule
         private IDrawer drawer;
 
         private bool isActivated;
-        private IModuleSetup setup;
+        private IDrawingModuleSetup setup;
         
         public LineProperty CurrentLineProperty { get; private set; }
 
@@ -33,7 +33,7 @@ namespace DH.DrawingModule
             get { return drawer.GetType(); }
         }
 
-        public DrawingModule(IModuleSetup setup)
+        public DrawingModule(IDrawingModuleSetup setup)
         {
             if(setup == null)
                 throw new Exception("Module setup cannot be null");
