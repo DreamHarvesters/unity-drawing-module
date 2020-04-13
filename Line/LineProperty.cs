@@ -35,13 +35,6 @@ namespace DH.DrawingModule.Line
 
         public Vector3 PointOffsetInWorldCoordinate => pointOffsetInWorldCoordinate;
 
-        public LineProperty(float lineWidth, Color lineColor, float smoothness)
-        {
-            this.lineWidth = lineWidth;
-            this.lineColor = lineColor;
-            this.smoothness = smoothness;
-        }
-
         public LineProperty(float lineWidth, Color lineColor, float smoothness, bool useWorldSpace,
             Vector3 pointOffsetInWorldCoordinate)
         {

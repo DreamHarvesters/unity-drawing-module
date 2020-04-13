@@ -23,6 +23,8 @@ namespace DH.DrawingModule
         public Action<Line.Line> LineCreated;
         public Action<Line.Line> LineEnded;
 
+        private DrawerFactory drawerFactory;
+
         public bool IsActivated
         {
             get { return isActivated; }
@@ -40,6 +42,7 @@ namespace DH.DrawingModule
             
             lines = new Stack<Line.Line>();
             this.setup = setup;
+            this.drawerFactory = new DrawerFactory(setup.InputReaderFactory);
         }
 
         public void Activate()
@@ -65,7 +68,7 @@ namespace DH.DrawingModule
             if (isActivated)
             {
                 drawer.Dispose();
-                drawer = new DrawerFactory(setup.InputReaderFactory).GetStraightLineDrawer(lineProperty, setup);
+                drawer = drawerFactory.GetStraightLineDrawer(lineProperty, setup);
                 drawer.OnLineCreated = OnLineCreated;
                 drawer.OnLineEnded = OnLineEnded;
                 return;
@@ -79,7 +82,7 @@ namespace DH.DrawingModule
             if (isActivated)
             {
                 drawer.Dispose();
-                drawer = new DrawerFactory(setup.InputReaderFactory).GetFreeLineDrawer(lineProperty, setup);
+                drawer = drawerFactory.GetFreeLineDrawer(lineProperty, setup);
                 drawer.OnLineCreated = OnLineCreated;
                 drawer.OnLineEnded = OnLineEnded;
                 return;
