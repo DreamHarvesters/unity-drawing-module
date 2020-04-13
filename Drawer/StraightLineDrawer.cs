@@ -10,8 +10,6 @@ namespace DH.DrawingModule.Drawer
         RaycastHit hit;
         Transform objectHit;
 
-        private bool drawEnable;
-
         public StraightLineDrawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab, Camera rayCamera, int canvasLayer) : base(inputReader, lineProperty, linePrefab, rayCamera, canvasLayer)
         {
         }
@@ -30,9 +28,9 @@ namespace DH.DrawingModule.Drawer
             inputReader.OnUp -= OnUp;
         }
 
-        private void OnMove(object sender, Vector3 args)
+        private void OnMove(object sender, Vector3 screenPos)
         {
-            Ray ray = rayCamera.ScreenPointToRay(args);
+            Ray ray = rayCamera.ScreenPointToRay(screenPos);
 
             if (Physics.Raycast(ray, out hit, 10000, layerMask) && line != null)
             {
@@ -40,13 +38,12 @@ namespace DH.DrawingModule.Drawer
             }
         }
 
-        private void OnDown(object sender, Vector3 args)
+        private void OnDown(object sender, Vector3 screenPos)
         {
-            Ray ray = rayCamera.ScreenPointToRay(args);
+            Ray ray = rayCamera.ScreenPointToRay(screenPos);
 
             if (Physics.Raycast(ray, out hit, 10000, layerMask))
             {
-                drawEnable = true;
                 objectHit = hit.transform;
                 Debug.Log(objectHit.name);
                 // Do something with the object that was hit by the raycast.
@@ -61,7 +58,7 @@ namespace DH.DrawingModule.Drawer
             }
         }
 
-        private void OnUp(object sender, Vector3 args)
+        private void OnUp(object sender, Vector3 screenPos)
         {
             RaiseLineEnded(line);
             

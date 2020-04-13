@@ -16,12 +16,14 @@ namespace DH.DrawingModule.Drawer
         public IDrawer GetStraightLineDrawer(LineProperty lineProperty, IDrawingModuleSetup setup)
         {
             IInputReader inputReader = inputReaderFactory.GetInputReader();
+            inputReader.Setup();
             return new StraightLineDrawer(inputReader, lineProperty, setup.LinePrefab, setup.RayCamera, setup.CanvasLayer);
         }
 
         public IDrawer GetFreeLineDrawer(LineProperty lineProperty, IDrawingModuleSetup setup)
         {
             IInputReader inputReader = inputReaderFactory.GetInputReader();
+            inputReader.Setup();
             return new FreeLineDrawer(inputReader, lineProperty, setup.LinePrefab, setup.RayCamera, setup.CanvasLayer);
         }
     }

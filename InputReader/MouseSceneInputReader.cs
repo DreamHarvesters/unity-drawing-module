@@ -36,7 +36,6 @@ namespace DH.DrawingModule.InputReader
                 if (Input.GetMouseButton(0) && buttonActive)
                 {
                     OnMove.Invoke(this, Input.mousePosition);
-                    Debug.Log("onmove");
                 }
 
                 yield return null;

@@ -13,7 +13,9 @@ namespace DH.DrawingModule.Line
 		}
 
 		List<Vector3> points;
-		
+
+		public List<Vector3> Points => new List<Vector3>(points);
+
 		private LineProperty lineProperty;
 
 		public void UpdateLineRenderer(LineProperty lineProperty)
