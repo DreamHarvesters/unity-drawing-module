@@ -29,10 +29,10 @@ namespace DH.DrawingModule.TestScripts
                 module.Undo();
             
             if(Input.GetKeyDown(KeyCode.F))
-                module.ChangeToFreeLine(new LineProperty(0.5f, Color.yellow, 0.2f));
+                module.ChangeToFreeLine(new LineProperty(0.5f, Color.yellow, 0.2f, true, Vector3.zero));
             
             if(Input.GetKeyDown(KeyCode.S))
-                module.ChangeToStraighLine(new LineProperty(0.5f, Color.yellow, 0.2f));
+                module.ChangeToStraighLine(new LineProperty(0.5f, Color.yellow, 0.2f, true, Vector3.zero));
         }
     }
 }

@@ -13,10 +13,10 @@ namespace DH.DrawingModule.Drawer
         protected int layerMask;
         protected Camera rayCamera;
 
-        public Drawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab, Camera rayCamera)
+        public Drawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab, Camera rayCamera, int canvasLayer)
         {
             lineFactory = new LineFactory(linePrefab);
-            layerMask = LayerMask.GetMask("DrawingPlane");
+            layerMask = canvasLayer;
             
             this.rayCamera = rayCamera;
             this.inputReader = inputReader;

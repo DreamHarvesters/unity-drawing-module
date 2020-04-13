@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace DH.DrawingModule.InputReader
 {
     public class MouseSceneInputReader : SceneInputReader
     {
-        public override InputEvent OnDown { get; set; }
-        public override InputEvent OnUp { get; set; }
-        public override InputEvent OnMove { get; set; }
+        public override Action<object, Vector3> OnDown { get; set; }
+        public override Action<object, Vector3> OnUp { get; set; }
+        public override Action<object, Vector3> OnMove { get; set; }
 
         private bool buttonActive;
 

@@ -5,10 +5,8 @@ namespace DH.DrawingModule.InputReader
 {
     public interface IInputReader : IDisposable
     {
-        InputEvent OnDown { get; set; }
-        InputEvent OnUp { get; set; }
-        InputEvent OnMove { get; set; }
+        Action<object, Vector3> OnDown { get; set; }
+        Action<object, Vector3> OnUp { get; set; }
+        Action<object, Vector3> OnMove { get; set; }
     }
-
-    public delegate void InputEvent(object sender, Vector3 position);
 }

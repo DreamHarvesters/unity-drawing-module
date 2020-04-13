@@ -12,7 +12,7 @@ namespace DH.DrawingModule.Drawer
 
         private bool drawEnable;
 
-        public StraightLineDrawer(IInputReader inputReader, LineProperty property, GameObject linePrefab, Camera rayCamera) : base(inputReader, property, linePrefab, rayCamera)
+        public StraightLineDrawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab, Camera rayCamera, int canvasLayer) : base(inputReader, lineProperty, linePrefab, rayCamera, canvasLayer)
         {
         }
 

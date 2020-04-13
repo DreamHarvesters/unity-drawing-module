@@ -8,5 +8,6 @@ namespace DH.DrawingModule
         GameObject LinePrefab { get; }
         Camera RayCamera { get; }
         IInputReaderFactory InputReaderFactory { get; }
+        int CanvasLayer { get; }
     }
 }

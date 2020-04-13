@@ -7,7 +7,6 @@ namespace DH.DrawingModule.Line
 	public class Line : MonoBehaviour {
 
 		public LineRenderer lineRenderer;
-		public EdgeCollider2D edgeCol;
 		public int LineCount
 		{
 			get { return points.Count; }
@@ -25,6 +24,7 @@ namespace DH.DrawingModule.Line
 			lineRenderer.endWidth = lineProperty.LineWidth;
 			lineRenderer.startColor = (lineProperty.LineColor);
 			lineRenderer.endColor = (lineProperty.LineColor);
+			lineRenderer.useWorldSpace = lineProperty.UseWorldSpace;
 		}
 
 		public void UpdateLine (Vector3 mousePos)
@@ -32,12 +32,12 @@ namespace DH.DrawingModule.Line
 			if (points == null)
 			{
 				points = new List<Vector3>();
-				SetPoint(mousePos);
+				SetPoint(mousePos + lineProperty.PointOffsetInWorldCoordinate);
 				return;
 			}
 
-			if (Vector2.Distance(points.Last(), mousePos) > lineProperty.Smootnes)
-				SetPoint(mousePos);
+			if (Vector2.Distance(points.Last(), mousePos) > lineProperty.Smoothness)
+				SetPoint(mousePos + lineProperty.PointOffsetInWorldCoordinate);
 		}
 
 		void SetPoint (Vector3 point)

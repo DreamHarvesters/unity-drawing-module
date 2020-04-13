@@ -65,7 +65,7 @@ namespace DH.DrawingModule
             if (isActivated)
             {
                 drawer.Dispose();
-                drawer = new DrawerFactory(setup.InputReaderFactory).GetStraightLineDrawer(lineProperty, setup.LinePrefab, setup.RayCamera);
+                drawer = new DrawerFactory(setup.InputReaderFactory).GetStraightLineDrawer(lineProperty, setup);
                 drawer.OnLineCreated = OnLineCreated;
                 drawer.OnLineEnded = OnLineEnded;
                 return;
@@ -79,7 +79,7 @@ namespace DH.DrawingModule
             if (isActivated)
             {
                 drawer.Dispose();
-                drawer = new DrawerFactory(setup.InputReaderFactory).GetFreeLineDrawer(lineProperty, setup.LinePrefab, setup.RayCamera);
+                drawer = new DrawerFactory(setup.InputReaderFactory).GetFreeLineDrawer(lineProperty, setup);
                 drawer.OnLineCreated = OnLineCreated;
                 drawer.OnLineEnded = OnLineEnded;
                 return;
