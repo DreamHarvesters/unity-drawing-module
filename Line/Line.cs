@@ -12,11 +12,14 @@ namespace DH.DrawingModule.Line
 			get { return points.Count; }
 		}
 
-		List<Vector3> points;
+		List<Vector3> points = new List<Vector3>(8);
 
-		public List<Vector3> Points => new List<Vector3>(points);
+		public List<Vector3> Points => points;
 
 		private LineProperty lineProperty;
+		private float length;
+
+		public float Length => length;
 
 		public void UpdateLineRenderer(LineProperty lineProperty)
 		{
@@ -29,17 +32,21 @@ namespace DH.DrawingModule.Line
 			lineRenderer.useWorldSpace = lineProperty.UseWorldSpace;
 		}
 
-		public void UpdateLine (Vector3 mousePos)
+		public bool UpdateLine (Vector3 mousePos)
 		{
-			if (points == null)
+			if (points.Count == 0)
 			{
-				points = new List<Vector3>();
 				SetPoint(mousePos + lineProperty.PointOffsetInWorldCoordinate);
-				return;
+				return true;
 			}
 
-			if (Vector2.Distance(points.Last(), mousePos) > lineProperty.Smoothness)
+			if (Vector3.Distance(points.Last(), mousePos) > lineProperty.Smoothness)
+			{
 				SetPoint(mousePos + lineProperty.PointOffsetInWorldCoordinate);
+				return true;
+			}
+
+			return false;
 		}
 
 		void SetPoint (Vector3 point)
@@ -48,6 +55,8 @@ namespace DH.DrawingModule.Line
 
 			lineRenderer.positionCount = points.Count;
 			lineRenderer.SetPosition(points.Count - 1, point);
+			
+			CalculateLength(point);
 		}
 
 		public void SetLastPoint(Vector3 point)
@@ -63,7 +72,13 @@ namespace DH.DrawingModule.Line
 			lineRenderer.SetPosition(points.Count - 1, point);
 		}
 
+		void CalculateLength(Vector3 point)
+		{
+			if (points.Count <= 1)
+				return;
 
+			length += (point - points[points.Count - 2]).magnitude;
+		}
 	}
 }
 

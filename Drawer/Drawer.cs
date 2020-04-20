@@ -13,11 +13,12 @@ namespace DH.DrawingModule.Drawer
         protected int layerMask;
         protected Camera rayCamera;
 
-        public Drawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab, Camera rayCamera, int canvasLayer)
+        public Drawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab, Camera rayCamera,
+            int canvasLayer)
         {
             lineFactory = new LineFactory(linePrefab);
             layerMask = canvasLayer;
-            
+
             this.rayCamera = rayCamera;
             this.inputReader = inputReader;
 
@@ -34,14 +35,17 @@ namespace DH.DrawingModule.Drawer
 
         protected void RaiseLineCreated(Line.Line line)
         {
-            if (OnLineCreated != null)
-                OnLineCreated(line);
+            OnLineCreated?.Invoke(line);
         }
 
         protected void RaiseLineEnded(Line.Line line)
         {
-            if (OnLineEnded != null)
-                OnLineEnded(line);
+            OnLineEnded?.Invoke(line);
+        }
+        
+        protected void RaiseLineDrawn(Line.Line line, Vector3 position)
+        {
+            OnLineSegmentAdded?.Invoke(line, position);
         }
 
         public void UpdateLineProperty(LineProperty lineProperty)
@@ -51,6 +55,7 @@ namespace DH.DrawingModule.Drawer
 
         public Action<Line.Line> OnLineCreated { get; set; }
         public Action<Line.Line> OnLineEnded { get; set; }
+        public Action<Line.Line, Vector3> OnLineSegmentAdded { get; set; }
 
         protected abstract void SubscribeInputEvents();
         protected abstract void UnsubscribeInputEvents();

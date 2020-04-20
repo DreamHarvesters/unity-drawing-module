@@ -9,7 +9,7 @@ namespace DH.DrawingModule
 {
     public class DrawingModule
     {
-        private Stack<Line.Line> lines;
+        private List<Line.Line> lines;
 
         private int layerMask = -1;
 
@@ -17,11 +17,12 @@ namespace DH.DrawingModule
 
         private bool isActivated;
         private IDrawingModuleSetup setup;
-        
+
         public LineProperty CurrentLineProperty { get; private set; }
 
         public Action<Line.Line> LineCreated;
         public Action<Line.Line> LineEnded;
+        public Action<Line.Line, Vector3> LineSegmentAdded;
 
         private DrawerFactory drawerFactory;
 
@@ -37,10 +38,10 @@ namespace DH.DrawingModule
 
         public DrawingModule(IDrawingModuleSetup setup)
         {
-            if(setup == null)
+            if (setup == null)
                 throw new Exception("Module setup cannot be null");
-            
-            lines = new Stack<Line.Line>();
+
+            lines = new List<Line.Line>();
             this.setup = setup;
             this.drawerFactory = new DrawerFactory(setup.InputReaderFactory);
         }
@@ -71,6 +72,7 @@ namespace DH.DrawingModule
                 drawer = drawerFactory.GetStraightLineDrawer(lineProperty, setup);
                 drawer.OnLineCreated = OnLineCreated;
                 drawer.OnLineEnded = OnLineEnded;
+                drawer.OnLineSegmentAdded = delegate(Line.Line line, Vector3 vector3) { LineSegmentAdded?.Invoke(line, vector3); };
                 return;
             }
 
@@ -85,6 +87,7 @@ namespace DH.DrawingModule
                 drawer = drawerFactory.GetFreeLineDrawer(lineProperty, setup);
                 drawer.OnLineCreated = OnLineCreated;
                 drawer.OnLineEnded = OnLineEnded;
+                drawer.OnLineSegmentAdded = delegate(Line.Line line, Vector3 vector3) { LineSegmentAdded?.Invoke(line, vector3); };
                 return;
             }
 
@@ -93,16 +96,14 @@ namespace DH.DrawingModule
 
         private void OnLineCreated(Line.Line line)
         {
-            lines.Push(line);
+            lines.Add(line);
 
-            if (LineCreated != null)
-                LineCreated(line);
+            LineCreated?.Invoke(line);
         }
 
         void OnLineEnded(Line.Line line)
         {
-            if (LineEnded != null)
-                LineEnded(line);
+            LineEnded?.Invoke(line);
         }
 
         public void UpdateLineProperty(LineProperty lineProperty)
@@ -115,8 +116,16 @@ namespace DH.DrawingModule
         {
             if (lines.Count > 0)
             {
-                GameObject.DestroyImmediate(lines.Pop().gameObject);
+                Line.Line l = lines[lines.Count - 1];
+                lines.Remove(l);
+                GameObject.DestroyImmediate(l.gameObject);
             }
+        }
+
+        public void Delete(Line.Line l)
+        {
+            lines.Remove(l);
+            GameObject.DestroyImmediate(l.gameObject);
         }
 
         public void ClearAllLines()
@@ -127,6 +136,11 @@ namespace DH.DrawingModule
             }
 
             lines.Clear();
+        }
+
+        public void AddLine(Line.Line line)
+        {
+            lines.Add(line);
         }
     }
 }

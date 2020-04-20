@@ -10,7 +10,8 @@ namespace DH.DrawingModule.Drawer
         private Line.Line line;
         private RaycastHit hit;
 
-        public FreeLineDrawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab, Camera rayCamera, int canvasLayer) : base(inputReader, lineProperty, linePrefab, rayCamera, canvasLayer)
+        public FreeLineDrawer(IInputReader inputReader, LineProperty lineProperty, GameObject linePrefab,
+            Camera rayCamera, int canvasLayer) : base(inputReader, lineProperty, linePrefab, rayCamera, canvasLayer)
         {
         }
 
@@ -36,7 +37,8 @@ namespace DH.DrawingModule.Drawer
             {
                 // Do something with the object that was hit by the raycast.
                 line = lineFactory.GetLine(lineProperty);
-                
+                line.UpdateLine(hit.point);
+
                 RaiseLineCreated(line);
             }
         }
@@ -47,7 +49,8 @@ namespace DH.DrawingModule.Drawer
 
             if (Physics.Raycast(ray, out hit, 10000, layerMask))
             {
-                line.UpdateLine(hit.point);
+                if (line.UpdateLine(hit.point))
+                    RaiseLineDrawn(line, hit.point);
             }
             else
             {
@@ -58,7 +61,7 @@ namespace DH.DrawingModule.Drawer
         private void OnUp(object sender, Vector3 screenPos)
         {
             RaiseLineEnded(line);
-            
+
             line = null;
         }
     }
