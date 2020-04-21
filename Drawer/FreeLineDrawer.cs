@@ -49,7 +49,17 @@ namespace DH.DrawingModule.Drawer
 
             if (Physics.Raycast(ray, out hit, 10000, layerMask))
             {
-                if (line.UpdateLine(hit.point))
+                bool lineUpdated = false;
+                try
+                {
+                    lineUpdated = line.UpdateLine(hit.point);
+                }
+                catch (MissingReferenceException e)
+                {
+                    line = null;
+                }
+
+                if (lineUpdated)
                     RaiseLineDrawn(line, hit.point);
             }
             else

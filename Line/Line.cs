@@ -21,6 +21,13 @@ namespace DH.DrawingModule.Line
 
 		public float Length => length;
 
+		public void Clear()
+		{
+			points.Clear();
+			length = 0;
+			lineRenderer.positionCount = 0;
+		}
+
 		public void UpdateLineRenderer(LineProperty lineProperty)
 		{
 			this.lineProperty = lineProperty;
